@@ -1,7 +1,0 @@
-{
-    "python.pythonPath": "/Users/michaeltcoelho/.pyenv/versions/ebi/bin/python3",
-    "python.linting.pylintEnabled": false,
-    "python.linting.flake8Enabled": false,
-    "python.linting.enabled": true,
-    "python.linting.mypyEnabled": true
-}
