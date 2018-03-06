@@ -1,0 +1,9 @@
+attrs==17.4.0
+mypy==0.570
+pluggy==0.6.0
+py==1.5.2
+pytest==3.4.2
+six==1.11.0
+SQLAlchemy==1.2.4
+SQLAlchemy-Utils==0.33.0
+typed-ast==1.1.0
