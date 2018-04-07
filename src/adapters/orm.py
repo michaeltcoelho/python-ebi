@@ -2,7 +2,7 @@ from sqlalchemy import create_engine, MetaData
 from sqlalchemy.orm import sessionmaker, scoped_session, Session, mapper
 from sqlalchemy_utils import create_database, drop_database
 
-from src.entities import UnitOfWork
+from src.entities import UnitOfWork, RepositoryContainer
 from src.entities.boards import BoardRepository
 
 
@@ -47,5 +47,5 @@ class SQLAlchemyUnitOfWork(UnitOfWork):
         self.session.rollback()
 
     @property
-    def boards(self):
-        return BoardRepository(self.session)
+    def repositories(self):
+        return RepositoryContainer(self.session)

@@ -22,14 +22,14 @@ class NewBoardHandler(Handler):
 
     def handle(self, cmd: NewBoard):
         board = Board(board_id=cmd.board_id, title=cmd.title)
-        self.uow.boards.add(board)
+        self.uow.repositories.boards.add(board)
         self.uow.commit()
 
 
 class AppendColumnToBoardHandler(Handler):
 
     def handle(self, cmd: AppendColumnToBoard):
-        board = self.uow.boards.get(cmd.board_id)
+        board = self.uow.repositories.boards.get(cmd.board_id)
         board.add_column(Column(cmd.column_id, cmd.title))
-        self.uow.boards.add(board)
+        self.uow.repositories.boards.add(board)
         self.uow.commit()
