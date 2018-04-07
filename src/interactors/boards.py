@@ -1,9 +1,10 @@
 from uuid import UUID
 from typing import NamedTuple
 
-from src.entities import Repository
 from src.entities.boards import Board
 from src.entities.columns import Column
+
+from src.interactors import Handler
 
 
 class NewBoard(NamedTuple):
@@ -11,18 +12,24 @@ class NewBoard(NamedTuple):
     title: str
 
 
-class AppendBoardAColumn(NamedTuple):
+class AppendColumnToBoard(NamedTuple):
     board_id: UUID
     column_id: UUID
     title: str
 
 
-def create_new_board(repo: Repository, cmd: NewBoard):
-    board = Board(board_id=cmd.board_id, title=cmd.title)
-    repo.add(board)
+class NewBoardHandler(Handler):
+
+    def handle(self, cmd: NewBoard):
+        board = Board(board_id=cmd.board_id, title=cmd.title)
+        self.uow.boards.add(board)
+        self.uow.commit()
 
 
-def append_column_to_board(repo: Repository, cmd: AppendBoardAColumn):
-    board = repo.get(board_id=cmd.board_id)
-    board.add_column(Column(column_id=cmd.column_id, title=cmd.title))
-    repo.save(board)
+class AppendColumnToBoardHandler(Handler):
+
+    def handle(self, cmd: AppendColumnToBoard):
+        board = self.uow.boards.get(cmd.board_id)
+        board.add_column(Column(cmd.column_id, cmd.title))
+        self.uow.boards.add(board)
+        self.uow.commit()

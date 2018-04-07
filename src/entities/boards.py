@@ -17,8 +17,5 @@ class Board:
 
 class BoardRepository(Repository):
 
-    def add(self, board):
-        pass
-
     def get(self, board_id):
         pass
